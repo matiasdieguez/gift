@@ -2,49 +2,75 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Brenda y Chelo</title>
+    <title>Para Bren y Chelo</title>
     <!-- Agrega enlaces a los archivos de Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
     <!-- Agrega tu archivo de estilos CSS personalizado si es necesario -->
 </head>
 <body class="bg-gray-100 p-4">
-    <div class="max-w-lg mx-auto bg-white p-8 rounded shadow-md">
-        <h1 class="text-2xl font-bold mb-4">Brenda y Chelo, para conocer el regalo que les hicimos Maite, Meli y Mati respondan este test sobre el Evangelio de San Juan</h1>
+    <div class="max-w-lg text-center mx-auto bg-white p-8 rounded shadow-md">
+        <h1 class="text-2xl mb-2">❤ Bren y Chelo ❤</h1>
+        <h2 class="text-xl  mb-2">Para conocer el regalo que les hicimos Maite, Meli y Mati respondan este test sobre el Evangelio de San Juan</h1></h2>
 
         <div id="questionContainer">
             <!-- Aquí se mostrará la pregunta actual -->
         </div>
 
         <!-- Botón de avanzar a la siguiente pregunta -->
-        <button id="nextBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hidden">Siguiente Pregunta</button>
+        <button id="nextBtn" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">¡Siguiente pregunta!</button>
 
         <!-- Puntaje -->
-        <p id="score" class="mt-4 font-bold text-xl hidden">Puntaje: <span id="scoreValue">0</span>/5</p>
+        <p id="score" class="mt-4 font-bold text-xl hidden">Puntaje: <span id="scoreValue">0</span> de 5</p>
+
+        <!-- Botón de reiniciar -->
+        <button id="resetBtn" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hidden">¡Volver a intentarlo!</button>
+
+        <!-- Gift -->
+        <div id="gift" class="hidden">
+            <p class="text-xl p-4 text-center">¡Acá esta su regalo! 3️⃣3️⃣ es un número muy especial y le agregamos algunos ceros 🤣</p>
+            <img src="gift.jpg" alt="Gift" class="w-full h-auto mb-4">        
+        </div>
+        
     </div>
 
     <script>
         const questions = [
             { question: "El Evangelio de San Juan fue escrito por Juan el Bautista.", answer: "falso" },
             { question: "El Evangelio de San Juan es el cuarto libro del Nuevo Testamento.", answer: "verdadero" },
-            { question: "El Evangelio de San Juan narra la vida y enseñanzas de Jesucristo.", answer: "verdadero" },
-            { question: "El Evangelio de San Juan contiene siete milagros de Jesús.", answer: "falso" },
+            { question: "Juan y Santiago eran hermanos.", answer: "verdadero" },
+            { question: "Los padres de Juan eran Salomé y Zacarías.", answer: "falso" },
             { question: "El Evangelio de San Juan es el único evangelio que menciona el sermón de la montaña.", answer: "falso" },
         ];
+
+        var answers = [];
 
         let currentQuestionIndex = 0;
         const questionContainer = document.getElementById("questionContainer");
         const nextBtn = document.getElementById("nextBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const gift = document.getElementById("gift");
         const scoreElement = document.getElementById("score");
         const scoreValueElement = document.getElementById("scoreValue");
 
         nextBtn.addEventListener("click", showNextQuestion);
+        resetBtn.addEventListener("click", reset);
 
         function showNextQuestion() {
+
+            const selectedAnswer = document.querySelector(`input[name="q${currentQuestionIndex+1}"]:checked`);
+            if(selectedAnswer == null)
+                return;
+
             currentQuestionIndex++;
+
+            answers.push(selectedAnswer.value)
+            
             if (currentQuestionIndex < questions.length) {
                 displayQuestion(currentQuestionIndex);
             } else {
+                nextBtn.classList.add("hidden");
                 calculateScore();
             }
         }
@@ -52,28 +78,42 @@
         function displayQuestion(index) {
             const question = questions[index];
             questionContainer.innerHTML = `
-                <img src="" alt="Imagen relacionada ${index + 1}" class="w-full h-auto mb-4">
-                <p class="mb-2">${index + 1}. ${question.question} (Verdadero/Falso)</p>
+                <img src="img${index + 1}.jpg" alt="Imagen relacionada ${index + 1}" class="w-full h-auto mb-4">
+                <p class="mb-2">${index + 1}. ${question.question}</p>
                 <input type="radio" name="q${index + 1}" value="verdadero"> Verdadero
-                <input type="radio" name="q${index + 1}" value="falso"> Falso
+                <input type="radio" name="q${index + 1}" value="falso" > Falso
             `;
-            nextBtn.classList.add("hidden");
+            //nextBtn.classList.add("hidden");
         }
 
         function calculateScore() {
             let score = 0;
             for (let i = 0; i < questions.length; i++) {
-                const selectedAnswer = document.querySelector(`input[name="q${i + 1}"]:checked`);
-                if (selectedAnswer) {
-                    if (selectedAnswer.value === questions[i].answer) {
-                        score++;
-                    }
+                if (answers[i] === questions[i].answer) {
+                    score++;
                 }
             }
 
             scoreValueElement.textContent = score;
             scoreElement.classList.remove("hidden");
             questionContainer.innerHTML = ""; // Limpia la pregunta actual
+
+            if(score == 5) {
+                gift.classList.remove("hidden");
+            }
+            else {
+                resetBtn.classList.remove("hidden");
+            }
+
+        }
+
+        function reset() {
+            answers = [];
+            currentQuestionIndex = 0;
+            scoreElement.classList.add("hidden");
+            resetBtn.classList.add("hidden");
+            nextBtn.classList.remove("hidden");
+            displayQuestion(currentQuestionIndex);
         }
 
         // Mostrar la primera pregunta al cargar la página
