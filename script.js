@@ -14,9 +14,12 @@ function createAndShufflePuzzle() {
     for (let i = 0; i < numRows; i++) {
         for (let j = 0; j < numCols; j++) {
             const tile = document.createElement("div");
-            tile.className = "puzzle-tile bg-gray-300 border border-gray-500 w-16 h-16 flex justify-center items-center text-lg cursor-pointer";
+            tile.className = "bg-gray-300 border border-gray-500 w-16 h-16 flex justify-center items-center text-lg cursor-pointer";
             tile.dataset.row = i;
             tile.dataset.col = j;
+            if (shuffledNumbers[i * numCols + j] === numRows * numCols) {
+                tile.classList.add("empty");
+            }
             tile.textContent = shuffledNumbers[i * numCols + j];
             puzzleContainer.appendChild(tile);
         }
