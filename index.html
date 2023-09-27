@@ -1,23 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rompecabezas de Regalo</title>
+    <title>Quiz sobre el Evangelio de San Juan</title>
+    <!-- Agrega enlaces a los archivos de Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Agrega tu archivo de estilos CSS personalizado si es necesario -->
 </head>
-<body class="bg-gray-200 p-4">
-    <div class="container mx-auto text-center">
-        <h1 class="text-3xl font-semibold mb-4">Rompecabezas de Regalo</h1>
-        <div id="puzzle-container" class="w-64 mx-auto">
-            <!-- Aquí se generará el rompecabezas -->
+<body class="bg-gray-100 p-4">
+    <div class="max-w-lg mx-auto bg-white p-8 rounded shadow-md">
+        <h1 class="text-2xl font-bold mb-4">Quiz sobre el Evangelio de San Juan</h1>
+
+        <!-- Pregunta 1 -->
+        <div class="mb-6">
+            <img src="" alt="Imagen relacionada 1" class="w-full h-auto mb-4">
+            <p class="mb-2">1. El Evangelio de San Juan fue escrito por Juan el Bautista. (Verdadero/Falso)</p>
+            <input type="radio" name="q1" value="verdadero"> Verdadero
+            <input type="radio" name="q1" value="falso"> Falso
         </div>
-        <button id="reveal-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4">Revelar Regalo</button>
-        <div id="image-container" class="hidden mt-4">
-            <img src="imagen_regalo.jpg" alt="Regalo" class="mx-auto rounded-lg">
+
+        <!-- Pregunta 2 -->
+        <div class="mb-6">
+            <img src="" alt="Imagen relacionada 2" class="w-full h-auto mb-4">
+            <p class="mb-2">2. El Evangelio de San Juan es el cuarto libro del Nuevo Testamento. (Verdadero/Falso)</p>
+            <input type="radio" name="q2" value="verdadero"> Verdadero
+            <input type="radio" name="q2" value="falso"> Falso
         </div>
+
+        <!-- Pregunta 3 -->
+        <div class="mb-6">
+            <img src="" alt="Imagen relacionada 3" class="w-full h-auto mb-4">
+            <p class="mb-2">3. El Evangelio de San Juan narra la vida y enseñanzas de Jesucristo. (Verdadero/Falso)</p>
+            <input type="radio" name="q3" value="verdadero"> Verdadero
+            <input type="radio" name="q3" value="falso"> Falso
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="mb-6">
+            <img src="" alt="Imagen relacionada 4" class="w-full h-auto mb-4">
+            <p class="mb-2">4. El Evangelio de San Juan contiene siete milagros de Jesús. (Verdadero/Falso)</p>
+            <input type="radio" name="q4" value="verdadero"> Verdadero
+            <input type="radio" name="q4" value="falso"> Falso
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="mb-6">
+            <img src="" alt="Imagen relacionada 5" class="w-full h-auto mb-4">
+            <p class="mb-2">5. El Evangelio de San Juan es el único evangelio que menciona el sermón de la montaña. (Verdadero/Falso)</p>
+            <input type="radio" name="q5" value="verdadero"> Verdadero
+            <input type="radio" name="q5" value="falso"> Falso
+        </div>
+
+        <!-- Botón de enviar -->
+        <button id="submitBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Enviar respuestas</button>
+
+        <!-- Puntaje -->
+        <p id="score" class="mt-4 font-bold text-xl hidden">Puntaje: <span id="scoreValue">0</span>/5</p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const questions = [
+            { question: "El Evangelio de San Juan fue escrito por Juan el Bautista.", answer: "falso" },
+            { question: "El Evangelio de San Juan es el cuarto libro del Nuevo Testamento.", answer: "verdadero" },
+            { question: "El Evangelio de San Juan narra la vida y enseñanzas de Jesucristo.", answer: "verdadero" },
+            { question: "El Evangelio de San Juan contiene siete milagros de Jesús.", answer: "falso" },
+            { question: "El Evangelio de San Juan es el único evangelio que menciona el sermón de la montaña.", answer: "falso" },
+        ];
+
+        const submitBtn = document.getElementById("submitBtn");
+        const scoreElement = document.getElementById("score");
+        const scoreValueElement = document.getElementById("scoreValue");
+
+        submitBtn.addEventListener("click", calculateScore);
+
+        function calculateScore() {
+            let score = 0;
+            for (let i = 1; i <= questions.length; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedAnswer) {
+                    if (selectedAnswer.value === questions[i - 1].answer) {
+                        score++;
+                    }
+                }
+            }
+
+            scoreValueElement.textContent = score;
+            scoreElement.classList.remove("hidden");
+        }
+    </script>
 </body>
 </html>
