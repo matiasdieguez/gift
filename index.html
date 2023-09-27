@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rompecabezas de Regalo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 p-4">
+    <div class="container mx-auto text-center">
+        <h1 class="text-3xl font-semibold mb-4">Rompecabezas de Regalo</h1>
+        <div id="puzzle-container" class="w-64 mx-auto">
+            <!-- Aquí se generará el rompecabezas -->
+        </div>
+        <button id="reveal-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4">Revelar Regalo</button>
+        <div id="image-container" class="hidden mt-4">
+            <img src="imagen_regalo.jpg" alt="Regalo" class="mx-auto rounded-lg">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
