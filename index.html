@@ -3,57 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz sobre el Evangelio de San Juan</title>
+    <title>Para Brenda y Chelo</title>
     <!-- Agrega enlaces a los archivos de Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
     <!-- Agrega tu archivo de estilos CSS personalizado si es necesario -->
 </head>
 <body class="bg-gray-100 p-4">
     <div class="max-w-lg mx-auto bg-white p-8 rounded shadow-md">
-        <h1 class="text-2xl font-bold mb-4">Quiz sobre el Evangelio de San Juan</h1>
+        <h1 class="text-2xl font-bold mb-4">Brenda y Chelo, para conocer el regalo que les hicimos Maite, Meli y Mati respondan este test sobre el Evangelio de San Juan</h1>
 
-        <!-- Pregunta 1 -->
-        <div class="mb-6">
-            <img src="" alt="Imagen relacionada 1" class="w-full h-auto mb-4">
-            <p class="mb-2">1. El Evangelio de San Juan fue escrito por Juan el Bautista. (Verdadero/Falso)</p>
-            <input type="radio" name="q1" value="verdadero"> Verdadero
-            <input type="radio" name="q1" value="falso"> Falso
+        <div id="questionContainer">
+            <!-- Aquí se mostrará la pregunta actual -->
         </div>
 
-        <!-- Pregunta 2 -->
-        <div class="mb-6">
-            <img src="" alt="Imagen relacionada 2" class="w-full h-auto mb-4">
-            <p class="mb-2">2. El Evangelio de San Juan es el cuarto libro del Nuevo Testamento. (Verdadero/Falso)</p>
-            <input type="radio" name="q2" value="verdadero"> Verdadero
-            <input type="radio" name="q2" value="falso"> Falso
-        </div>
-
-        <!-- Pregunta 3 -->
-        <div class="mb-6">
-            <img src="" alt="Imagen relacionada 3" class="w-full h-auto mb-4">
-            <p class="mb-2">3. El Evangelio de San Juan narra la vida y enseñanzas de Jesucristo. (Verdadero/Falso)</p>
-            <input type="radio" name="q3" value="verdadero"> Verdadero
-            <input type="radio" name="q3" value="falso"> Falso
-        </div>
-
-        <!-- Pregunta 4 -->
-        <div class="mb-6">
-            <img src="" alt="Imagen relacionada 4" class="w-full h-auto mb-4">
-            <p class="mb-2">4. El Evangelio de San Juan contiene siete milagros de Jesús. (Verdadero/Falso)</p>
-            <input type="radio" name="q4" value="verdadero"> Verdadero
-            <input type="radio" name="q4" value="falso"> Falso
-        </div>
-
-        <!-- Pregunta 5 -->
-        <div class="mb-6">
-            <img src="" alt="Imagen relacionada 5" class="w-full h-auto mb-4">
-            <p class="mb-2">5. El Evangelio de San Juan es el único evangelio que menciona el sermón de la montaña. (Verdadero/Falso)</p>
-            <input type="radio" name="q5" value="verdadero"> Verdadero
-            <input type="radio" name="q5" value="falso"> Falso
-        </div>
-
-        <!-- Botón de enviar -->
-        <button id="submitBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Enviar respuestas</button>
+        <!-- Botón de avanzar a la siguiente pregunta -->
+        <button id="nextBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hidden">Siguiente Pregunta</button>
 
         <!-- Puntaje -->
         <p id="score" class="mt-4 font-bold text-xl hidden">Puntaje: <span id="scoreValue">0</span>/5</p>
@@ -68,18 +32,40 @@
             { question: "El Evangelio de San Juan es el único evangelio que menciona el sermón de la montaña.", answer: "falso" },
         ];
 
-        const submitBtn = document.getElementById("submitBtn");
+        let currentQuestionIndex = 0;
+        const questionContainer = document.getElementById("questionContainer");
+        const nextBtn = document.getElementById("nextBtn");
         const scoreElement = document.getElementById("score");
         const scoreValueElement = document.getElementById("scoreValue");
 
-        submitBtn.addEventListener("click", calculateScore);
+        nextBtn.addEventListener("click", showNextQuestion);
+
+        function showNextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion(currentQuestionIndex);
+            } else {
+                calculateScore();
+            }
+        }
+
+        function displayQuestion(index) {
+            const question = questions[index];
+            questionContainer.innerHTML = `
+                <img src="" alt="Imagen relacionada ${index + 1}" class="w-full h-auto mb-4">
+                <p class="mb-2">${index + 1}. ${question.question} (Verdadero/Falso)</p>
+                <input type="radio" name="q${index + 1}" value="verdadero"> Verdadero
+                <input type="radio" name="q${index + 1}" value="falso"> Falso
+            `;
+            nextBtn.classList.add("hidden");
+        }
 
         function calculateScore() {
             let score = 0;
-            for (let i = 1; i <= questions.length; i++) {
-                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+            for (let i = 0; i < questions.length; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i + 1}"]:checked`);
                 if (selectedAnswer) {
-                    if (selectedAnswer.value === questions[i - 1].answer) {
+                    if (selectedAnswer.value === questions[i].answer) {
                         score++;
                     }
                 }
@@ -87,7 +73,11 @@
 
             scoreValueElement.textContent = score;
             scoreElement.classList.remove("hidden");
+            questionContainer.innerHTML = ""; // Limpia la pregunta actual
         }
+
+        // Mostrar la primera pregunta al cargar la página
+        displayQuestion(currentQuestionIndex);
     </script>
 </body>
 </html>
