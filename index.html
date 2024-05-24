@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Ceci y Pablo</title>
+    <title>Para Dani y Eze</title>
     <!-- Agrega enlaces a los archivos de Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
     <!-- Agrega tu archivo de estilos CSS personalizado si es necesario -->
 </head>
 <body class="bg-gray-100 p-4">
     <div class="max-w-lg text-center mx-auto bg-white p-8 rounded shadow-md">
-        <h1 class="text-2xl mb-2">❤ Ceci y Pablo ❤</h1>
-        <h2 class="text-xl  mb-2">Para conocer el regalo que les hicimos Maite, Meli y Mati respondan este test sobre El Señor de los Anillos</h1></h2>
+        <h1 class="text-2xl mb-2">❤ Dani y Eze ❤</h1>
+        <h2 class="text-xl  mb-2">Para conocer el regalo que les hicimos Maite, Meli y Mati respondan 5 preguntas correctamente 😆</h1></h2>
 
         <div id="questionContainer">
             <!-- Aquí se mostrará la pregunta actual -->
@@ -22,14 +22,14 @@
         <button id="nextBtn" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">¡Siguiente pregunta!</button>
 
         <!-- Puntaje -->
-        <p id="score" class="mt-4 font-bold text-xl hidden">Correctas <span id="scoreValue">0</span> de 5</p>
+        <p id="score" class="mt-4 font-bold text-xl hidden">¡Hay <span id="scoreValue">0</span> correctas de 5!</p>
 
         <!-- Botón de reiniciar -->
         <button id="resetBtn" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hidden">¡Volver a intentarlo!</button>
 
         <!-- Gift -->
         <div id="gift" class="hidden">
-            <p class="text-xl p-4 text-center">¡Acá esta su regalo! 9 hs 18 min dura la mejor trilogía de la historia y le agregamos algunos ceros en pataconans🤣</p>
+            <p class="text-xl p-4 text-center">¡Acá esta su regalo!</p>
             <img src="gift.jpg" alt="Gift" class="w-full h-auto mb-4">        
         </div>
         
@@ -37,11 +37,11 @@
 
     <script>
         const questions = [
-            { question: "Arwen es hija de Elrond y Lúthien", answer: "falso" },
-            { question: "Aragorn y Arwen tienen mas de dos milenios de diferencia de edad.", answer: "verdadero" },
-            { question: "Gandalf es último Istari que llegó a la Tierra Media.", answer: "verdadero" },
-            { question: "Bilbo Bolsón es el cuarto personaje en tener en sus manos el Anillo Único desde que fue creado.", answer: "falso" },
-            { question: "La trilogía El Señor de los Anillos dirigida por Peter Jackson dura aproximadamente 9 horas y 18 minutos en total.", answer: "verdadero" },
+            { question: "Evita y Perón se conocieron en 1944 durante un evento benéfico por el terremoto de San Juan.", answer: "verdadero" },
+            { question: "Evita tuvo un cargo oficial en el gobierno de Perón.", answer: "falso" },
+            { question: "Perón. Sinfonía del Sentimiento, fué dirigida por Pino Solanas.", answer: "falso" },
+            { question: "Perón dijo: Las dos piernas del justicialismo son la justicia social y la ayuda social. Con ellas damos al pueblo un puntapié de justicia y amor.", answer: "falso" },
+            { question: "Según el nombre de la unidad básica que sale en Bombita Rodriguez contra los Burócratas Sindicales del Espacio, Isabel sería soltera.", answer: "verdadero" },
         ];
 
         var answers = [];
